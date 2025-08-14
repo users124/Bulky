@@ -15,12 +15,17 @@ namespace Bulky.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
+
             Category = new CategoryRepository(_db);
+
+            // FIX: Use the concrete implementation of ProductRepository
+            Product = new ProductRepository(_db);
 
         }
 
         public ICategoryRepository Category { get; private set; }
 
+        public IProductRepository Product { get; private set; }
         public void Save()
         {
             _db.SaveChanges();
